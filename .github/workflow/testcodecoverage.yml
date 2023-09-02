@@ -3,8 +3,8 @@ name: Test and Code Coverage e.g., Simplecov
 on:
   push:
     branches:
-      - master
       - main
+      - dev
 
 jobs:
   build:
