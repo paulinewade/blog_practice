@@ -1,0 +1,7 @@
+<%= div_for @post do %>
+  <h2>ID <%= h(@post.id) %></h2>
+  <strong>Title:</strong> <%= h(@post.title) %>
+  <br>
+  <br>
+  <strong>Body:</strong> <%=  simple_format h(@post.body) %>
+<% end %>
