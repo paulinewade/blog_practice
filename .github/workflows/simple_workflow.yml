@@ -2,8 +2,8 @@ env:
 #  RUBY_VERSION: 3.0.2
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
-  DATABASE_USER: blog_user
-  DATABASE_PASSWORD: 	blog_password
+  DATABASE_USER: postgres
+  DATABASE_PASSWORD: 	postgres
 
 name: Rails tests
 on:
