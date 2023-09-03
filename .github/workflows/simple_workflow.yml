@@ -36,14 +36,12 @@ jobs:
         run: |
           gem install bundler
           bundler install
+          bundler exec rails webpacker:install
       - name: Create database
         run: |
           bundler exec rails db:create RAILS_ENV=test
           bundler exec rails db:migrate RAILS_ENV=test
       - uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: install
-      - uses: webpacker
         with:
           cmd: install
       - name: Run tests
