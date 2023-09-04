@@ -63,9 +63,11 @@ jobs:
         PGPASSWORD: postgres
         RAILS_ENV: test
       run: |
+        bundler exec rspec
+#      run: |
 #        npx update-browserslist-db@latest
 #        bundle exec rake webpacker:compile
-        bundler exec rspec
+
 
 
   # rubocop-test:
