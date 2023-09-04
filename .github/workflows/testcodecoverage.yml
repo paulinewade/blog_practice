@@ -66,14 +66,14 @@ jobs:
         bundler exec rspec
 
 simplecov-test:
-  name: SimpleCov
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v1
-    - uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.1.2
-        bundler-cache: true
-  - name: Download all workflow run artifacts
-    uses: actions/download-artifact@v2
-    if: always()
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.2
+          bundler-cache: true
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v2
+        if: always()
