@@ -64,9 +64,8 @@ jobs:
         RAILS_ENV: test
       run: |
         bundler exec rspec
-#      run: |
-#        npx update-browserslist-db@latest
-#        bundle exec rake webpacker:compile
+        npx update-browserslist-db@latest
+        bundle exec rake webpacker:compile
 
 
 
