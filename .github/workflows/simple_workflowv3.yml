@@ -23,13 +23,13 @@ jobs:
       postgres:
         #image: postgres
         image: postgres:12
+        ports:
+          - 5432:5432
 
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-        ports:
-          - 5432:5432
-
+      #    RAILS_ENV: test
       # redis:
       #   image: redis
       #   ports: ['6379:6379']
@@ -40,12 +40,9 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.1.2
-#          ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
 
-      - uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: install
+
       - name: Install PostgreSQL client
         run: |
           sudo apt-get install libpq-dev
@@ -57,9 +54,9 @@ jobs:
 
         env:
           # REDIS_URL: redis://localhost:6379/0
-          PGUSER: postgres
-          PGPASSWORD: postgres
-          RAILS_ENV: test
+          # PGUSER: postgres
+          # PGPASSWORD: postgres
+          # RAILS_ENV: test
 
         run: |
           bundler exec rails db:create RAILS_ENV=test
@@ -72,9 +69,9 @@ jobs:
 
       - name: Run tests
         env:
-          PGUSER: postgres
-          PGPASSWORD: postgres
-          RAILS_ENV: test
+          # PGUSER: postgres
+          # PGPASSWORD: postgres
+          # RAILS_ENV: test
 
         run: bundler exec rspec .
 
