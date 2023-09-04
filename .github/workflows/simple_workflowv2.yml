@@ -21,10 +21,10 @@ jobs:
     services:
       postgres:
         image: postgres
-        # image: postgres12
+        # image: postgres:12
         env:
-          POSTGRES_USER: ${{ env.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         ports:
         - 5432:5432
 
@@ -51,15 +51,14 @@ jobs:
 
       - name: Create database
         env:
-          REDIS_URL: redis://localhost:6379/0
-          PGHOST: localhost
+#          REDIS_URL: redis://localhost:6379/0
+#          PGHOST: localhost
           PGUSER: postgres
           PGPASSWORD: postgres
           RAILS_ENV: test
         run: |
           bundler exec rails db:create RAILS_ENV=test
           bundler exec rails db:migrate RAILS_ENV=test
-
       - name: Run tests
         env:
           PGHOST: localhost
