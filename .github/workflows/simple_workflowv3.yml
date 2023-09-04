@@ -21,8 +21,8 @@ jobs:
 
     services:
       postgres:
-        image: postgres
-        # image: postgres:12
+        #image: postgres
+        image: postgres:12
 
         env:
           POSTGRES_USER: postgres
@@ -50,13 +50,13 @@ jobs:
         run: |
           sudo apt-get install libpq-dev
           gem install bundler
-          bundle install --jobs 4 --retry 3
+          bundler install
+          bundler exec rails webpacker:install
 
       - name: Set-up database
 
         env:
           # REDIS_URL: redis://localhost:6379/0
-          PGHOST: localhost
           PGUSER: postgres
           PGPASSWORD: postgres
           RAILS_ENV: test
@@ -65,13 +65,13 @@ jobs:
           bundler exec rails db:create RAILS_ENV=test
           bundler exec rails db:migrate RAILS_ENV=test
 
-      # - uses: borales/actions-yarn@v3.0.0
-      #   with:
-      #     cmd: install
+
+       - uses: borales/actions-yarn@v3.0.0
+         with:
+           cmd: install
 
       - name: Run tests
         env:
-          PGHOST: localhost
           PGUSER: postgres
           PGPASSWORD: postgres
           RAILS_ENV: test
