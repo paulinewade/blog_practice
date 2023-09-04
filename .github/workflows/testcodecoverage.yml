@@ -65,8 +65,24 @@ jobs:
       run: |
         bundler exec rspec
 
-simplecov-test:
-  coverage:
+
+  rubocop-test:
+    name: Rubocop
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
+        with:
+          #ruby-version: ${{ env.RUBY_VERSION }}
+          ruby-version: 3.1.2
+          bundler-cache: true
+      - name: Install Rubocop & Check code
+        run: |
+          gem install rubocop
+          rubocop
+
+  simplecov-test:
+    name: SimpleCov
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
