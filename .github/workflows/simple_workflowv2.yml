@@ -1,7 +1,7 @@
-env:
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres
-  RAILS_ENV: test
+# env:
+#   POSTGRES_USER: postgres
+#   POSTGRES_PASSWORD: postgres
+#   RAILS_ENV: test
 #   DATABASE_USER: postgres
 #   DATABASE_PASSWORD: 	postgres
 
@@ -24,8 +24,11 @@ jobs:
         image: postgres
         # image: postgres:12
 
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         ports:
-        - 5432:5432
+          - 5432:5432
 
       redis:
         image: redis
@@ -49,21 +52,29 @@ jobs:
           gem install bundler
           bundle install --jobs 4 --retry 3
 
-      - name: Create database
-#        env:
-#          REDIS_URL: redis://localhost:6379/0
-#          PGHOST: localhost
+      - name: Set-up database
+
+        env:
+          REDIS_URL: redis://localhost:6379/0
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          RAILS_ENV: test
 
         run: |
           bundler exec rails db:create RAILS_ENV=test
           bundler exec rails db:migrate RAILS_ENV=test
-      - uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: install
+
+      # - uses: borales/actions-yarn@v3.0.0
+      #   with:
+      #     cmd: install
 
       - name: Run tests
-#        env:
-#          PGHOST: localhost
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          RAILS_ENV: test
 
         run: bundler exec rspec .
 
