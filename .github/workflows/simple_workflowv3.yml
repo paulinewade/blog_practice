@@ -57,9 +57,9 @@ jobs:
           cmd: install
 
       - name: Run tests
- #      env:
-          # PGUSER: postgres
-          # PGPASSWORD: postgres
+        env:
+          PGUSER: postgres
+          PGPASSWORD: postgres
           # RAILS_ENV: test
 
         run: bundler exec rspec .
