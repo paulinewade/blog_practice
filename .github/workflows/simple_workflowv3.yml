@@ -42,10 +42,10 @@ jobs:
           bundler exec rails webpacker:install
 
       - name: Set-up database
-#        env:
+        env:
           # REDIS_URL: redis://localhost:6379/0
-          # PGUSER: postgres
-          # PGPASSWORD: postgres
+          PGUSER: postgres
+          PGPASSWORD: postgres
           # RAILS_ENV: test
 
         run: |
