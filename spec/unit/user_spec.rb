@@ -1,4 +1,4 @@
-require 'rails_helper'
+#require 'rails_helper'
 
 RSpec.describe User, :type => :model do
 
@@ -16,5 +16,5 @@ RSpec.describe User, :type => :model do
     user = User.new(first_name: "anything", last_name: nil)
     expect(user).to_not be_valid
   end
-  
+
 end
