@@ -18,62 +18,51 @@ jobs:
   build:
     name: Set-up environment
     runs-on: ubuntu-latest
-
     services:
       postgres:
         #image: postgres
         image: postgres:12
         ports:
           - 5432:5432
-
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-      #    RAILS_ENV: test
-      # redis:
-      #   image: redis
-      #   ports: ['6379:6379']
-      #   options: --entrypoint redis-server
+  steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.1.2
+        bundler-cache: true
 
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.1.2
-          bundler-cache: true
+    - name: Install PostgreSQL client
+      run: |
+        sudo apt-get install libpq-dev
+        gem install bundler
+        bundler install
+        bundler exec rails webpacker:install
 
-
-      - name: Install PostgreSQL client
-        run: |
-          sudo apt-get install libpq-dev
-          gem install bundler
-          bundler install
-          bundler exec rails webpacker:install
-
-      - name: Set-up database
-
-        env:
+    - name: Set-up database
+#        env:
           # REDIS_URL: redis://localhost:6379/0
           # PGUSER: postgres
           # PGPASSWORD: postgres
           # RAILS_ENV: test
 
-        run: |
-          bundler exec rails db:create RAILS_ENV=test
-          bundler exec rails db:migrate RAILS_ENV=test
+      run: |
+        bundler exec rails db:create RAILS_ENV=test
+        bundler exec rails db:migrate RAILS_ENV=test
 
+    - uses: borales/actions-yarn@v3.0.0
+      with:
+        cmd: install
 
-       - uses: borales/actions-yarn@v3.0.0
-         with:
-           cmd: install
-
-      - name: Run tests
-        env:
+    - name: Run tests
+ #      env:
           # PGUSER: postgres
           # PGPASSWORD: postgres
           # RAILS_ENV: test
 
-        run: bundler exec rspec .
+      run: bundler exec rspec .
 
 
   # simplecov-test:
