@@ -1,6 +1,6 @@
 env:
-  PGUSER: postgres
-  PGPASSWORD: postgres
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
   RAILS_ENV: test
 #   DATABASE_USER: postgres
 #   DATABASE_PASSWORD: 	postgres
