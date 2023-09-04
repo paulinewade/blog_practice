@@ -13,10 +13,12 @@ default: &default
   additional_paths: []
 
   # Reload manifest.json on all requests so we reload latest compiled packs
-  cache_manifest: false
+  cache_manifest: true
+  ##changed 9.4.23 cache_manifest: false
 
   # Extract and emit a css file
-  extract_css: false
+  #extract_css: false
+  extract_css: true
 
   static_assets_extensions:
     - .jpg
@@ -83,7 +85,8 @@ production:
   <<: *default
 
   # Production depends on precompilation of packs prior to booting for performance.
-  compile: false
+  #changed 9.4.23 compile: false
+  compile: true
 
   # Extract and emit a css file
   extract_css: true
