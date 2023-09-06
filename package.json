@@ -14,4 +14,10 @@
   "devDependencies": {
     "webpack-dev-server": "^3"
   }
+  "dependencies": {
+    "@rails/webpacker": "5.1.1"
+  }
+  "engines": {
+  "node": "14.X"
+  }
 }
