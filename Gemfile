@@ -90,3 +90,4 @@ gem 'yaml_db'
 
 gem 'brakeman'
 gem 'rubocop'
+gem "tzinfo-data"
