@@ -6,7 +6,7 @@ RSpec.describe "CreatingBlogPosts", type: :system do
   end
 
 #  pending "add some scenarios (or delete) #{__FILE__}"
-it 'saves and displays the resulting blog post' do
+it 'saves & displays the resulting blog post' do
   visit root_path
   click_on "New Post"
 
