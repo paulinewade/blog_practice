@@ -1,5 +1,8 @@
 {
   "name": "build-blog",
+  "engines": {
+  "node": "16"
+  },
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
