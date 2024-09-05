@@ -61,7 +61,16 @@ jobs:
         bundle exec rails db:setup RAILS_ENV=test
         bundle exec rake db:migrate RAILS_ENV=test
 
-    - name: Run Tests
+    # - name: Run Tests, Rubocop, Simplecov
+    #   env:
+    #     PGHOST: localhost
+    #     PGUSER: postgres
+    #     PGPASSWORD: postgres
+    #     RAILS_ENV: test
+    #   run: |
+    #     bundler exec rspec
+
+    - name: Run Tests & Rubocop
       env:
         PGHOST: localhost
         PGUSER: postgres
@@ -69,31 +78,5 @@ jobs:
         RAILS_ENV: test
       run: |
         bundler exec rspec
-
-    rubocop-test:
-     name: Rubocop
-     runs-on: ubuntu-latest
-     steps:
-      - uses: actions/checkout@v1
-      - uses: ruby/setup-ruby@v1
-        with:
-          #ruby-version: ${{ env.RUBY_VERSION }}
-          ruby-version: 3.1.2
-          bundler-cache: true
-      - name: Install Rubocop & Check code
-        run: |
-          gem install rubocop
-          rubocop
-
-  simplecov-test:
-    name: SimpleCov
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.1.2
-          bundler-cache: true
-  #     - name: Download all workflow run artifacts
-  #       uses: actions/download-artifact@v2
-  #       if: always()
+        gem install rubocop
+        rubocop
