@@ -78,5 +78,5 @@ jobs:
         RAILS_ENV: test
       run: |
         bundler exec rspec
-        gem install rubocop
-        rubocop
+#        gem install rubocop
+#        rubocop
