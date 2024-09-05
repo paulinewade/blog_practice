@@ -70,7 +70,7 @@ jobs:
     #   run: |
     #     bundler exec rspec
 
-    - name: Run Tests & Rubocop
+    - name: Run Tests
       env:
         PGHOST: localhost
         PGUSER: postgres
@@ -80,3 +80,26 @@ jobs:
         bundler exec rspec
 #        gem install rubocop
 #        rubocop
+
+      - name: Run brakeman
+        run: brakeman -o brakeman.txt
+      - name: Run rubocop
+        run: bundler exec rubocop --force-exclusion vendor/*/** --out rubocop.txt
+      - name: Upload coverage results
+        uses: actions/upload-artifact@master
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage
+      - name: Upload rubocop report
+        uses: actions/upload-artifact@master
+        if: always()
+        with:
+          name: rubocop-report.txt
+          path: rubocop.txt
+      - name: Upload brakeman report
+        uses: actions/upload-artifact@master
+        if: always()
+        with:
+          name: brakeman-report.txt
+          path: brakeman.txt
